@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Multilevel HTML Form</title>
+  </head>
+  <body>
+    <form>
+      <span id="present-level"></span>
+      <div id="container"></div>
+    </form>
+
+    <script>
+      let presentLevel = 1
+      let presentLevelContainer = document.getElementById('present-level')
+      presentLevelContainer.innerHTML = presentLevel
+      let levelOne = document.getElementById('level-1')
+      let levelTwo = document.getElementById('level-2')
+      let levelThree = document.getElementById('level-3')
+      let nextButton = document.getElementById('next-btn')
+      let prevButton = document.getElementById('prev-btn')
+      let investmentValue = document.getElementById('investment-value')
+      let container = document.getElementById('container')
+
+      function SubmitForm(event) {
+        event.preventDefault()
+        console.log('event', event)
+      }
+
+      let RangeCalculator = function (e) {
+        investmentValue.innerHTML =
+          '&#8358;' + (Number(e.target.value) * 50000).toLocaleString()
+      }
+
+      let SetNextLevel = function () {
+        if (presentLevel >= 1 && presentLevel < 3) {
+          ++presentLevel
+          SwitchLevel(presentLevel)
+
+          return
+        } else return
+      }
+
+      function SwitchLevel(presentLevel) {
+        if (presentLevel === 3) {
+          container.innerHTML = levelThreeContent
+          presentLevelContainer.innerHTML = presentLevel
+        } else if (presentLevel === 2) {
+          container.innerHTML = levelTwoContent
+          presentLevelContainer.innerHTML = presentLevel
+        } else {
+          container.innerHTML = levelOneContent
+          presentLevelContainer.innerHTML = presentLevel
+        }
+      }
+
+      let SetPreviousLevel = function () {
+        if (presentLevel > 1 && presentLevel <= 3) {
+          --presentLevel
+          SwitchLevel(presentLevel)
+          return
+        } else return
+      }
+
+      const levelOneContent = `<div>
+          <h3>Basic Info</h3>
+          <div class='input-group'>
+            <label>
+              <strong>First Name:</strong>
+            </label>
+            <input
+              class='input-field'
+              type='text'
+              name='first_name'
+              placeholder='John'
+            />
+          </div>
+
+          <div class='input-group'>
+            <label>
+              <strong>Last Name:</strong>
+            </label>
+            <input
+              class='input-field'
+              type='text'
+              name='last_name'
+              placeholder='Doe'
+            />
+          </div>
+
+          <div class='input-group'>
+            <label>
+              <strong>Date Of Birth:</strong>
+            </label>
+            <input class='input-field' type='date' name='dob' />
+          </div>
+          <div class="controller">
+        <button id="prev-btn" onclick="SetPreviousLevel()" type="button">
+          Previous
+        </button>
+        <button id="next-btn" onclick="SetNextLevel()" type="button">
+          Next
+        </button>
+      </div>
+        </div>`
+
+      const levelTwoContent = `<div>
+        <h3>Login Info</h3>
+        <div class="input-group">
+          <label>
+            <strong>Email:</strong>
+          </label>
+          <input
+            class="input-field"
+            type="email"
+            name="email"
+            placeholder="johndoe@gmail.com"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>
+            <strong>Password:</strong>
+          </label>
+          <input class="input-field" type="password" name="password" />
+        </div>
+
+        <div class="input-group">
+          <label>
+            <strong>Confirm Password:</strong>
+          </label>
+          <input class="input-field" type="password" name="confirm_password" />
+        </div>
+        <div class="controller">
+        <button id="prev-btn" onclick="SetPreviousLevel()" type="button">
+          Previous
+        </button>
+        <button id="next-btn" onclick="SetNextLevel()" type="button">
+          Next
+        </button>
+      </div>
+      </div>`
+
+      const levelThreeContent = `<div>
+        <h3>Investment Info</h3>
+        <div class="input-group">
+          <label>
+            <strong>Initial Investment:</strong>
+            <span id="investment-value"></span>
+          </label>
+          <input
+            class="input-field"
+            onchange="RangeCalculator(event)"
+            value="0"
+            type="range"
+            name="initial-investment"
+          />
+        </div>
+        <div class="input-group">
+          <label> <strong>Bank:</strong></label>
+          <br />
+          <select name='bank'>
+            <option value='Access Bank'>Access Bank</option>
+            <option value='GTCO'>GTCO</option>
+            <option value='First Bank'>First Bank</option>
+            <option value='Sterling Bank'>Sterling Bank</option>
+            <option value='Zenith Bank'>Zenith Bank</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label> <strong>Investment Duration:</strong> </label>
+          <br />
+          <select name='duration'>
+            <option value='6 Months'>6 Months</option>
+            <option value='1 Year'>1 Year</option>
+            <option value='2 Years'>2 Years</option>
+            <option value='3 Years'>3 Years</option>
+            <option value='4 Years'>4 Years</option>
+          </select>
+        </div>
+        <div class="controller">
+        <button id="prev-btn" onclick="SetPreviousLevel()" type="button">
+          Previous
+        </button>
+        <button id="next-btn" onclick="SetNextLevel()" type="submit">
+          Submit
+        </button>
+      </div>
+      </div>`
+      container.innerHTML = levelOneContent
+    </script>
+  </body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Multilevel HTML Form</title>
+  </head>
+  <body>
+    <form>
+      <!-- Level One -->
+      <div id="level-1">
+        <h3>Basic Info</h3>
+        <div class="input-group">
+          <label>
+            <strong>First Name:</strong>
+          </label>
+          <input
+            class="input-field"
+            type="text"
+            name="first_name"
+            placeholder="John"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>
+            <strong>Last Name:</strong>
+          </label>
+          <input
+            class="input-field"
+            type="text"
+            name="last_name"
+            placeholder="Doe"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>
+            <strong>Date Of Birth:</strong>
+          </label>
+          <input class="input-field" type="date" name="dob" />
+        </div>
+      </div>
+      <!-- Level Two -->
+      <div id="level-2">
+        <h3>Login Info</h3>
+        <div class="input-group">
+          <label>
+            <strong>Email:</strong>
+          </label>
+          <input
+            class="input-field"
+            type="email"
+            placeholder="johndoe@gmail.com"
+          />
+        </div>
+
+        <div class="input-group">
+          <label>
+            <strong>Password:</strong>
+          </label>
+          <input class="input-field" type="password" name="password" />
+        </div>
+
+        <div class="input-group">
+          <label>
+            <strong>Confirm Password:</strong>
+          </label>
+          <input class="input-field" type="password" name="confirm_password" />
+        </div>
+      </div>
+
+      <!-- Level Three -->
+      <div id="level-3">
+        <h3>Investment Info</h3>
+        <div class="input-group">
+          <label>
+            <strong>Initial Investment:</strong>
+            <span id="investment-value"></span>
+          </label>
+          <input
+            class="input-field"
+            onchange="RangeCalculator(event)"
+            value="0"
+            type="range"
+          />
+        </div>
+        <div class="input-group">
+          <label> <strong>Bank:</strong></label>
+          <br />
+          <select>
+            <option>Access Bank</option>
+            <option>GTCO</option>
+            <option>First Bank</option>
+            <option>Sterling Bank</option>
+            <option>Zenith Bank</option>
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label> <strong>Investment Duration:</strong> </label>
+          <br />
+          <select>
+            <option>6 Months</option>
+            <option>1 Year</option>
+            <option>2 Years</option>
+            <option>3 Years</option>
+            <option>4 Years</option>
+          </select>
+        </div>
+      </div>
+      <div class="controller">
+        <button id="prev-btn" onclick="SetPreviousLevel()" type="button">
+          Previous
+        </button>
+        <button id="next-btn" onclick="SetNextLevel()" type="button">
+          Next
+        </button>
+      </div>
+    </form>
+
+    <script>
+      let presentLevel = 1
+      let levelOne = document.getElementById('level-1')
+      let levelTwo = document.getElementById('level-2')
+      let levelThree = document.getElementById('level-3')
+      let nextButton = document.getElementById('next-btn')
+      let prevButton = document.getElementById('prev-btn')
+      let investmentValue = document.getElementById('investment-value')
+      let RangeCalculator = function (e) {
+        investmentValue.innerHTML =
+          '&#8358;' + (Number(e.target.value) * 50000).toLocaleString()
+      }
+
+      let SetNextLevel = function () {
+        if (presentLevel >= 1 && presentLevel < 3) {
+          ++presentLevel
+          SwitchLevel(presentLevel)
+
+          return
+        } else return
+      }
+
+      function SwitchLevel(presentLevel) {
+        if (presentLevel === 3) {
+          levelOne.style.display = 'none'
+          levelTwo.style.display = 'none'
+          levelThree.style.display = 'block'
+          nextButton.innerHTML = 'Submit'
+        } else if (presentLevel === 2) {
+          levelOne.style.display = 'none'
+          levelTwo.style.display = 'block'
+          levelThree.style.display = 'none'
+          nextButton.innerHTML = 'Next'
+        } else {
+          levelOne.style.display = 'block'
+          levelTwo.style.display = 'none'
+          levelThree.style.display = 'none'
+          nextButton.innerHTML = 'Next'
+        }
+      }
+
+      let SetPreviousLevel = function () {
+        if (presentLevel > 1 && presentLevel <= 3) {
+          --presentLevel
+          SwitchLevel(presentLevel)
+          return
+        } else return
+      }
+    </script>
+  </body>
+</html>

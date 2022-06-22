@@ -1,0 +1,30 @@
+.controller {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: goldenrod;
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 4px 0px;
+}
+
+#level-2,
+#level-3 {
+  display: none;
+}
+
+form {
+  width: 25%;
+  min-width: 400px;
+  background: cyan;
+  padding: 10px;
+}
